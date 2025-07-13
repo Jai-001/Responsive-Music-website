@@ -16,8 +16,7 @@ function secondsToMMSS(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
     try {
-        let res = await fetch(`https://jai-001.github.io/Responsive-Music-website/${folder}/songs.json`);
-        songs = await res.json();
+        let res = await fetch(`https://jai-001.github.io/Responsive-Music-website/${folder}`);
 
         let songUl = document.querySelector(".songlist ul");
         songUl.innerHTML = "";
