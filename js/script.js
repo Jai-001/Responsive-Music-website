@@ -43,7 +43,7 @@ async function getSongs(folder) {
                             </div>
                             <div class="playnow">
                                 <span>Play Now</span>
-                                <img class="invert" src="img/playbutton.svg" alt="">
+                                <img class="invert" src="./img/playbutton.svg" alt="">
                             </div>
                             </li>`;
     }
@@ -59,7 +59,7 @@ const playMusic = (track, pause = false) => {
     currentSong.src = `/${currFolder}/` + track;
     if (!pause) {
         currentSong.play();
-        play.src = "img/pause.svg";
+        play.src = "./img/pause.svg";
     }
     // currentSong.play();
     document.querySelector(".songinfo").innerHTML = decodeURI(track);
@@ -68,7 +68,7 @@ const playMusic = (track, pause = false) => {
     // info.style.width = '410px';
 }
 async function displayAlbum(){
-    let a = await fetch(`http://127.0.0.1:5500/Songs`);
+    let a = await fetch(`https://jai-001.github.io/Responsive-Music-website/Songs`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -79,11 +79,11 @@ async function displayAlbum(){
             const e = array[index];
         if(e.href.includes("/Songs/")){
             let folder = e.href.split("/").splice(-1)[0];
-            let a = await fetch(`http://127.0.0.1:5500/Songs/${folder}/info.json`);
+            let a = await fetch(`https://jai-001.github.io/Responsive-Music-website/Songs/${folder}/info.json`);
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
                         <div class="play">
-                            <img src="img/play.svg" alt="">
+                            <img src="./img/play.svg" alt="">
                         </div>
                         <img src="/Songs/${folder}/cover.jpg"
                             alt="">
@@ -112,11 +112,11 @@ async function main() {
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play();
-            play.src = "img/pause.svg";
+            play.src = "./img/pause.svg";
         }
         else {
             currentSong.pause()
-            play.src = "img/playbutton.svg";
+            play.src = "./img/playbutton.svg";
         }
     })
     let buttons = document.getElementById('buttons')
@@ -156,13 +156,13 @@ async function main() {
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change",(e)=>{
         currentSong.volume = parseInt(e.target.value)/100;
         if(currentSong.volume == 0){
-            document.querySelector(".volume").src="img/volumeoff.svg";
+            document.querySelector(".volume").src="./img/volumeoff.svg";
         }
         else if(currentSong.volume>0 && currentSong.volume*100<=50){
-            document.querySelector(".volume").src="img/midvol.svg";
+            document.querySelector(".volume").src="./img/midvol.svg";
         }
         else{
-            document.querySelector(".volume").src="img/volume.svg";
+            document.querySelector(".volume").src="./img/volume.svg";
         }
     })
     document.querySelector(".volume").addEventListener("click",e=>{
