@@ -29,7 +29,7 @@ async function getSongs(folder) {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            // songs.push(element.href.split(`/${folder}/`)[1])
+            songs.push(element.href.split(`/${folder}/`)[1])
             console.log(element.href.split(`/${folder}/`)[1])
         }
     }
@@ -86,7 +86,7 @@ async function displayAlbum(){
                         <div class="play">
                             <img src="./img/play.svg" alt="">
                         </div>
-                        <img src="/Songs/${folder}/cover.jpg"
+                        <img src="./Songs/${folder}/cover.jpg"
                             alt="">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
@@ -104,7 +104,7 @@ async function displayAlbum(){
 }
 async function main() {
 
-    await getSongs("Songs/ncs");
+    await getSongs("./Songs/ncs");
     playMusic(songs[0], true)
 
     //Display all the album on the page
