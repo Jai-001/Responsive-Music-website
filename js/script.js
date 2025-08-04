@@ -20,7 +20,7 @@ function secondsToMMSS(seconds) {
 
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`https://github.com/Jai-001/Responsive-Music-website/tree/main/${folder}`);
+    let a = await fetch(`https://responsive-music-website-eight.vercel.app/${folder}`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -69,7 +69,7 @@ const playMusic = (track, pause = false) => {
     // info.style.width = '410px';
 }
 async function displayAlbum(){
-    let a = await fetch(`https://github.com/Jai-001/Responsive-Music-website/tree/main/Songs`);
+    let a = await fetch(`https://responsive-music-website-eight.vercel.app/Songs`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -80,7 +80,7 @@ async function displayAlbum(){
             const e = array[index];
         if(e.href.includes("/Songs/")){
             let folder = e.href.split("/").splice(-1)[0];
-            let a = await fetch(`https://github.com/Jai-001/Responsive-Music-website/tree/main/Songs/${folder}/info.json`);
+            let a = await fetch(`https://responsive-music-website-eight.vercel.app/Songs/${folder}/info.json`);
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
                         <div class="play">
@@ -180,3 +180,4 @@ async function main() {
     })
 }
 main()
+
