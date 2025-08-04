@@ -116,7 +116,7 @@ async function displayAlbum() {
         })
         
     })
-}
+
 async function main() {
 
     await getSongs("Songs/ncs");
@@ -195,6 +195,7 @@ async function main() {
     })
 }
 main()
+
 
 
 
