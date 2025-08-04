@@ -108,15 +108,6 @@ async function displayAlbum() {
     }
 }
 
-
-    Array.from(document.getElementsByClassName("card")).forEach(e=>{
-        e.addEventListener("click",async item=>{
-         songs = await getSongs(`Songs/${item.currentTarget.dataset.folder}`);  
-         playMusic(songs[0])
-        })
-        
-    })
-
 async function main() {
 
     await getSongs("Songs/ncs");
@@ -195,6 +186,7 @@ async function main() {
     })
 }
 main()
+
 
 
 
