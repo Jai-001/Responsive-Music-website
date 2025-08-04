@@ -68,31 +68,46 @@ const playMusic = (track, pause = false) => {
     // buttons.style.right = '161px';
     // info.style.width = '410px';
 }
-async function displayAlbum(){
-    let a = await fetch(`/Songs`);
-    let response = await a.text();
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let anchors = div.getElementsByTagName("a");
-    let cardContainer = document.querySelector(".cardContainer")
-    let array = Array.from(anchors)
-        for (let index = 0; index < array.length; index++) {
-            const e = array[index];
-        if(e.href.includes("/Songs/")){
-            let folder = e.href.split("/").splice(-1)[0];
-            let a = await fetch(`/Songs/${folder}/info.json`);
-            let response = await a.json();
-            cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
+async function displayAlbum() {
+    try {
+        let a = await fetch(`/Songs/index.json`);
+        let folders = await a.json(); // Example: ["ncs", "lofi"]
+
+        let cardContainer = document.querySelector(".cardContainer");
+        cardContainer.innerHTML = "";
+
+        for (let folder of folders) {
+            try {
+                let res = await fetch(`/Songs/${folder}/info.json`);
+                let info = await res.json();
+
+                cardContainer.innerHTML += `
+                    <div data-folder="${folder}" class="card">
                         <div class="play">
                             <img src="./img/play.svg" alt="">
                         </div>
-                        <img src="./Songs/${folder}/cover.jpg"
-                            alt="">
-                        <h2>${response.title}</h2>
-                        <p>${response.description}</p>
-                    </div>`
+                        <img src="./Songs/${folder}/cover.jpg" alt="">
+                        <h2>${info.title}</h2>
+                        <p>${info.description}</p>
+                    </div>
+                `;
+            } catch (err) {
+                console.error(`Failed to load info.json for ${folder}`, err);
+            }
         }
+
+        Array.from(document.getElementsByClassName("card")).forEach(e => {
+            e.addEventListener("click", async item => {
+                songs = await getSongs(`Songs/${item.currentTarget.dataset.folder}`);
+                playMusic(songs[0]);
+            });
+        });
+
+    } catch (err) {
+        console.error("Failed to load album index:", err);
     }
+}
+
 
     Array.from(document.getElementsByClassName("card")).forEach(e=>{
         e.addEventListener("click",async item=>{
@@ -180,5 +195,6 @@ async function main() {
     })
 }
 main()
+
 
 
